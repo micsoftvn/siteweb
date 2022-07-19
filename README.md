@@ -34,36 +34,3 @@ Netlify's Identity and Git Gateway services allow you to manage CMS admin users 
 4. Scroll down to **Services > Git Gateway**, and click **Enable Git Gateway**. This authenticates with your Git host and generates an API access token. In this case, we're leaving the **Roles** field blank, which means any logged in user may access the CMS.
 
 More info: [Git Gateway](https://docs.netlify.com/visitor-access/git-gateway/)
-
-### Add the Netlify Identity Widget
-
-You will need to add it to the `<head>` of your CMS index page at /admin/index.html and to the `<head>` of the main index page of your website. We can use Netlify's script injection feature to include this script in your website.
-
-```html
-<!-- Include the script that enables Netlify Identity on this page. -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-```
-
-Using Netlify's script injection feature, add the following script to the main index page of your website before the close body tag.
-
-```html
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", (user) => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
-```
-
-### Congratulations
-
-You can now manage the content of your website at https://yoursite.netlify.com/admin/.
-
-## License
-
-[MIT](LICENSE) &copy; [Demo Macro](https://github.com/DemoMacro)
